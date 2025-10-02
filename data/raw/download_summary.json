@@ -1,0 +1,20 @@
+{
+  "download_timestamp": "2025-09-30T21:49:27.438321",
+  "datasets": {
+    "uci_auto_mpg": {
+      "shape": [
+        398,
+        9
+      ],
+      "columns": [
+        "mpg",
+        "cylinders",
+        "displacement",
+        "horsepower",
+        "weight",
+        "acceleration",
+        "model_year",
+        "origin",
+        "car_name"
+      ],
+      "missing_values": 
