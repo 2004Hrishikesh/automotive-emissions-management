@@ -111,9 +111,9 @@ def main():
     # Create and run dashboard
     dashboard = AutomotiveAnalyticsDashboard(datasets, quality_reports)
     
-    print("🚀 Dashboard Starting...")
-    print("📊 Dashboard URL: http://localhost:8050")
-    print("🌐 Open your browser and navigate to the URL above")
+    print("Dashboard Starting...")
+    print("Dashboard URL: http://localhost:8050")
+    print("Open your browser and navigate to the URL above")
     print("⏹️  Press Ctrl+C to stop the dashboard")
     print()
     

@@ -39,7 +39,7 @@ def download_uci_auto_mpg():
         return data
         
     except Exception as e:
-        print(f"❌ Failed to download UCI Auto MPG: {e}")
+        print(f"Failed to download UCI Auto MPG: {e}")
         return None
 
 def download_epa_fuel_economy_sample():
@@ -143,7 +143,7 @@ def download_epa_fuel_economy_sample():
         return epa_df
         
     except Exception as e:
-        print(f"❌ Failed to create EPA dataset: {e}")
+        print(f"Failed to create EPA dataset: {e}")
         return None
 
 def download_vehicle_dataset():
@@ -244,7 +244,7 @@ def download_vehicle_dataset():
         return vehicle_df
         
     except Exception as e:
-        print(f"❌ Failed to create vehicle dataset: {e}")
+        print(f"Failed to create vehicle dataset: {e}")
         return None
 
 def generate_download_summary(datasets):
@@ -310,10 +310,10 @@ if __name__ == "__main__":
     print(f"✓ Files saved to: data/raw/")
     
     if successful_downloads == 3:
-        print("\n🎉 ALL DATASETS DOWNLOADED SUCCESSFULLY!")
-        print("📊 Ready for Phase II data processing pipeline")
+        print("\nALL DATASETS DOWNLOADED SUCCESSFULLY!")
+        print("Ready for Phase II data processing pipeline")
     else:
-        print(f"\n⚠️  {3 - successful_downloads} dataset(s) failed to download")
-        print("📋 Check error messages above for details")
+        print(f"\n {3 - successful_downloads} dataset(s) failed to download")
+        print("Check error messages above for details")
     
     print("\n" + "="*80)

@@ -30,14 +30,14 @@ def run_phase_ii_analysis():
     print("="*80)
     
     # 1. Load Real Datasets
-    print("\n🔄 STEP 1: Loading Real Datasets")
+    print("\nSTEP 1: Loading Real Datasets")
     print("-" * 50)
     
     loader = DataLoader()
     datasets = loader.load_all_datasets()
     
     # 2. Initial Data Exploration
-    print("\n📊 STEP 2: Initial Data Exploration")
+    print("\nSTEP 2: Initial Data Exploration")
     print("-" * 50)
     
     for dataset_name, df in datasets.items():
@@ -60,7 +60,7 @@ def run_phase_ii_analysis():
                 print(f"    {col}: Mean={df[col].mean():.2f}, Std={df[col].std():.2f}, Range=({df[col].min():.1f}, {df[col].max():.1f})")
     
     # 3. Data Quality Assessment
-    print("\n🔍 STEP 3: Data Quality Assessment")
+    print("\nSTEP 3: Data Quality Assessment")
     print("-" * 50)
     
     quality_scores = {}
@@ -84,14 +84,14 @@ def run_phase_ii_analysis():
             unreasonable_mpg = ((df['mpg'] < 5) | (df['mpg'] > 60)).sum()
             validity_issues += unreasonable_mpg
             if unreasonable_mpg > 0:
-                print(f"    ⚠️  Unreasonable MPG values: {unreasonable_mpg}")
+                print(f"     Unreasonable MPG values: {unreasonable_mpg}")
         
         # For EPA dataset - check city < highway MPG
         if all(col in df.columns for col in ['city_mpg', 'highway_mpg']):
             logical_errors = (df['city_mpg'] > df['highway_mpg']).sum()
             validity_issues += logical_errors
             if logical_errors > 0:
-                print(f"    ⚠️  City MPG > Highway MPG: {logical_errors} cases")
+                print(f"     City MPG > Highway MPG: {logical_errors} cases")
         
         # Calculate overall quality score
         validity_score = max(0, 100 - (validity_issues / len(df)) * 100)
@@ -100,24 +100,24 @@ def run_phase_ii_analysis():
         overall_quality = (completeness * 0.4 + validity_score * 0.3 + consistency_score * 0.3)
         quality_scores[dataset_name] = overall_quality
         
-        print(f"    📈 Completeness: {completeness:.1f}%")
-        print(f"    ✅ Validity Score: {validity_score:.1f}%")
-        print(f"    🔄 Consistency Score: {consistency_score:.1f}%")
-        print(f"    🎯 Overall Quality Score: {overall_quality:.1f}/100")
+        print(f"    Completeness: {completeness:.1f}%")
+        print(f"    Validity Score: {validity_score:.1f}%")
+        print(f"    Consistency Score: {consistency_score:.1f}%")
+        print(f"    Overall Quality Score: {overall_quality:.1f}/100")
         
         if overall_quality >= 90:
-            status = "EXCELLENT ✨"
+            status = "EXCELLENT "
         elif overall_quality >= 80:
-            status = "GOOD ✅"
+            status = "GOOD "
         elif overall_quality >= 70:
-            status = "FAIR ⚠️"
+            status = "FAIR "
         else:
-            status = "POOR ❌"
+            status = "POOR "
         
-        print(f"    📊 Status: {status}")
+        print(f"    Status: {status}")
     
     # 4. Missing Value Analysis
-    print("\n🔧 STEP 4: Missing Value Treatment")
+    print("\nSTEP 4: Missing Value Treatment")
     print("-" * 50)
     
     cleaner = DataCleaner()
@@ -143,10 +143,10 @@ def run_phase_ii_analysis():
             missing_after = cleaned_df.isnull().sum().sum()
             print(f"  Missing values after: {missing_after}")
             print(f"  Reduction: {missing_before - missing_after} ({((missing_before - missing_after) / max(missing_before, 1) * 100):.1f}%)")
-            print(f"  Shape change: {df.shape} → {cleaned_df.shape}")
+            print(f"  Shape change: {df.shape} -> {cleaned_df.shape}")
         else:
             cleaned_df = df.copy()
-            print("  ✅ No missing values found")
+            print("  No missing values found")
         
         cleaned_datasets[dataset_name] = cleaned_df
     
@@ -168,7 +168,7 @@ def run_phase_ii_analysis():
             print(f"  New features: {list(new_cols)}")
     
     # 6. Export Results
-    print("\n💾 STEP 6: Exporting Processed Datasets")
+    print("\nSTEP 6: Exporting Processed Datasets")
     print("-" * 50)
     
     os.makedirs('data/processed', exist_ok=True)
@@ -176,10 +176,10 @@ def run_phase_ii_analysis():
     for dataset_name, df in cleaned_datasets.items():
         filename = f"data/processed/{dataset_name}_cleaned.csv"
         df.to_csv(filename, index=False)
-        print(f"  ✅ Saved: {filename} ({df.shape[0]:,} rows × {df.shape[1]} columns)")
+        print(f"  Saved: {filename} ({df.shape[0]:,} rows × {df.shape[1]} columns)")
     
     # 7. Final Summary
-    print("\n🎯 STEP 7: Phase II Completion Summary")
+    print("\nSTEP 7: Phase II Completion Summary")
     print("-" * 50)
     
     total_original_rows = sum(df.shape[0] for df in datasets.values())
@@ -188,16 +188,16 @@ def run_phase_ii_analysis():
                                   for name in datasets.keys())
     avg_quality_score = sum(quality_scores.values()) / len(quality_scores)
     
-    print(f"📊 PHASE II RESULTS:")
-    print(f"  ✅ Datasets Processed: {len(datasets)}")
-    print(f"  ✅ Total Data Points: {total_original_rows:,} → {total_processed_rows:,}")
-    print(f"  ✅ Missing Values Eliminated: {total_missing_eliminated:,}")
-    print(f"  ✅ Average Quality Score: {avg_quality_score:.1f}/100")
-    print(f"  ✅ Cleaned Datasets Exported: {len(cleaned_datasets)}")
+    print(f"PHASE II RESULTS:")
+    print(f"  Datasets Processed: {len(datasets)}")
+    print(f"  Total Data Points: {total_original_rows:,} -> {total_processed_rows:,}")
+    print(f"  Missing Values Eliminated: {total_missing_eliminated:,}")
+    print(f"  Average Quality Score: {avg_quality_score:.1f}/100")
+    print(f"  Cleaned Datasets Exported: {len(cleaned_datasets)}")
     
-    print(f"\n🏆 PHASE II STATUS: COMPLETED SUCCESSFULLY")
-    print(f"📁 All deliverables generated and ready for submission")
-    print(f"🚀 Datasets ready for Phase III: Advanced Analytics and Modeling")
+    print(f"\nPHASE II STATUS: COMPLETED SUCCESSFULLY")
+    print(f"All deliverables generated and ready for submission")
+    print(f"Datasets ready for Phase III: Advanced Analytics and Modeling")
     
     print("\n" + "="*80)
     
@@ -216,7 +216,7 @@ if __name__ == "__main__":
     results = run_phase_ii_analysis()
     
     # Additional detailed analysis
-    print("\n📈 DETAILED DATASET ANALYSIS")
+    print("\nDETAILED DATASET ANALYSIS")
     print("="*80)
     
     for name, df in results['cleaned_datasets'].items():

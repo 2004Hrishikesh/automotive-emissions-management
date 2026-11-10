@@ -29,7 +29,7 @@ class AutomotiveAnalyticsDashboard:
         self.app.layout = html.Div([
             # Header with gradient background
             html.Div([
-                html.H1("🚗 Automotive Data Science Analytics Dashboard", 
+                html.H1("Automotive Data Science Analytics Dashboard", 
                        style={
                            'textAlign': 'center', 
                            'color': 'white',
@@ -53,10 +53,10 @@ class AutomotiveAnalyticsDashboard:
             
             # Dataset Selection with better styling
             html.Div([
-                html.Label("📊 Select Dataset:", style={'fontWeight': 'bold', 'fontSize': '1.2em', 'marginBottom': '10px'}),
+                html.Label("Select Dataset:", style={'fontWeight': 'bold', 'fontSize': '1.2em', 'marginBottom': '10px'}),
                 dcc.Dropdown(
                     id='dataset-dropdown',
-                    options=[{'label': f'🔹 {name.replace("_", " ").title()}', 'value': name} 
+                    options=[{'label': f'{name.replace("_", " ").title()}', 'value': name} 
                             for name in self.datasets.keys()],
                     value=list(self.datasets.keys())[0],
                     style={'marginBottom': 20, 'fontSize': '1.1em'},
@@ -73,22 +73,22 @@ class AutomotiveAnalyticsDashboard:
             # Dashboard tabs with enhanced styling
             html.Div([
                 dcc.Tabs(id="dashboard-tabs", value='overview', children=[
-                    dcc.Tab(label='📊 Data Overview', value='overview', 
+                    dcc.Tab(label='Data Overview', value='overview', 
                            style={'fontWeight': 'bold'}, 
                            selected_style={'fontWeight': 'bold', 'backgroundColor': '#667eea', 'color': 'white'}),
-                    dcc.Tab(label='✅ Quality Assessment', value='quality',
+                    dcc.Tab(label='Quality Assessment', value='quality',
                            style={'fontWeight': 'bold'},
                            selected_style={'fontWeight': 'bold', 'backgroundColor': '#667eea', 'color': 'white'}),
-                    dcc.Tab(label='📈 Data Distributions', value='distributions',
+                    dcc.Tab(label='Data Distributions', value='distributions',
                            style={'fontWeight': 'bold'},
                            selected_style={'fontWeight': 'bold', 'backgroundColor': '#667eea', 'color': 'white'}),
-                    dcc.Tab(label='🔧 Cleaning Process', value='cleaning',
+                    dcc.Tab(label='Cleaning Process', value='cleaning',
                            style={'fontWeight': 'bold'},
                            selected_style={'fontWeight': 'bold', 'backgroundColor': '#667eea', 'color': 'white'}),
-                    dcc.Tab(label='🔄 Process Flow', value='process',
+                    dcc.Tab(label='Process Flow', value='process',
                            style={'fontWeight': 'bold'},
                            selected_style={'fontWeight': 'bold', 'backgroundColor': '#667eea', 'color': 'white'}),
-                    dcc.Tab(label='🔬 Advanced Analytics', value='advanced',
+                    dcc.Tab(label='Advanced Analytics', value='advanced',
                            style={'fontWeight': 'bold'},
                            selected_style={'fontWeight': 'bold', 'backgroundColor': '#667eea', 'color': 'white'})
                 ], style={'fontSize': '1.1em'})
@@ -120,13 +120,13 @@ class AutomotiveAnalyticsDashboard:
         
         # Dataset info with visual cards
         info_data = [
-            {"📊 Metric": "Total Rows", "📈 Value": f"{df.shape[0]:,}", "Icon": "📋"},
-            {"📊 Metric": "Total Columns", "📈 Value": f"{df.shape[1]:,}", "Icon": "📐"},
-            {"📊 Metric": "Missing Values", "📈 Value": f"{df.isnull().sum().sum():,}", "Icon": "❓"},
-            {"📊 Metric": "Duplicate Rows", "📈 Value": f"{df.duplicated().sum():,}", "Icon": "🔄"},
-            {"📊 Metric": "Memory Usage", "📈 Value": f"{df.memory_usage(deep=True).sum() / 1024**2:.2f} MB", "Icon": "💾"},
-            {"📊 Metric": "Numeric Columns", "📈 Value": f"{len(df.select_dtypes(include=[np.number]).columns)}", "Icon": "🔢"},
-            {"📊 Metric": "Categorical Columns", "📈 Value": f"{len(df.select_dtypes(include=['object']).columns)}", "Icon": "🏷️"}
+            {"Metric": "Total Rows", "Value": f"{df.shape[0]:,}", "Icon": ""},
+            {"Metric": "Total Columns", "Value": f"{df.shape[1]:,}", "Icon": ""},
+            {"Metric": "Missing Values", "Value": f"{df.isnull().sum().sum():,}", "Icon": "❓"},
+            {"Metric": "Duplicate Rows", "Value": f"{df.duplicated().sum():,}", "Icon": ""},
+            {"Metric": "Memory Usage", "Value": f"{df.memory_usage(deep=True).sum() / 1024**2:.2f} MB", "Icon": ""},
+            {"Metric": "Numeric Columns", "Value": f"{len(df.select_dtypes(include=[np.number]).columns)}", "Icon": ""},
+            {"Metric": "Categorical Columns", "Value": f"{len(df.select_dtypes(include=['object']).columns)}", "Icon": ""}
         ]
         
         info_table = dash_table.DataTable(
@@ -184,28 +184,28 @@ class AutomotiveAnalyticsDashboard:
         )
         
         return html.Div([
-            html.H3(f"📊 Dataset Overview: {selected_dataset.replace('_', ' ').title()}", 
+            html.H3(f"Dataset Overview: {selected_dataset.replace('_', ' ').title()}", 
                    style={'color': '#667eea', 'marginBottom': 20}),
             
             html.Div([
                 html.Div([
-                    html.H4("📋 Dataset Information", style={'color': '#764ba2'}),
+                    html.H4("Dataset Information", style={'color': '#764ba2'}),
                     info_table
                 ], style={'width': '48%', 'display': 'inline-block', 'verticalAlign': 'top'}),
                 
                 html.Div([
-                    html.H4("📊 Column Types", style={'color': '#764ba2'}),
+                    html.H4("Column Types", style={'color': '#764ba2'}),
                     dcc.Graph(figure=dtype_fig)
                 ], style={'width': '48%', 'float': 'right', 'display': 'inline-block'})
             ], style={'marginBottom': 30}),
             
             html.Div([
-                html.H4("🔍 Sample Data (First 5 Rows)", style={'color': '#764ba2'}),
+                html.H4("Sample Data (First 5 Rows)", style={'color': '#764ba2'}),
                 sample_table
             ], style={'marginBottom': 30}),
             
             html.Div([
-                html.H4("📈 Statistical Summary", style={'color': '#764ba2'}),
+                html.H4("Statistical Summary", style={'color': '#764ba2'}),
                 stats_table
             ])
         ])
@@ -355,7 +355,7 @@ class AutomotiveAnalyticsDashboard:
         if len(missing_data) == 0:
             missing_fig = go.Figure()
             missing_fig.add_annotation(
-                text="✅ No Missing Values Detected!<br>Data Quality: Perfect",
+                text="No Missing Values Detected!<br>Data Quality: Perfect",
                 xref="paper", yref="paper",
                 x=0.5, y=0.5, showarrow=False,
                 font=dict(size=20, color="green")
@@ -396,11 +396,11 @@ class AutomotiveAnalyticsDashboard:
         
         # Cleaning summary
         cleaning_summary = [
-            {"Step": "1. Data Loading", "Status": "✅ Complete", "Records": f"{len(df):,}"},
-            {"Step": "2. Missing Value Check", "Status": "✅ Complete" if len(missing_data) == 0 else "⚠️ Found Issues", "Records": f"{df.isnull().sum().sum():,} missing"},
-            {"Step": "3. Data Type Validation", "Status": "✅ Complete", "Records": f"{len(df.columns)} columns"},
-            {"Step": "4. Quality Assessment", "Status": "✅ Complete", "Records": "100/100"},
-            {"Step": "5. Export Ready", "Status": "✅ Complete", "Records": "Production-ready"}
+            {"Step": "1. Data Loading", "Status": "Complete", "Records": f"{len(df):,}"},
+            {"Step": "2. Missing Value Check", "Status": "Complete" if len(missing_data) == 0 else "Found Issues", "Records": f"{df.isnull().sum().sum():,} missing"},
+            {"Step": "3. Data Type Validation", "Status": "Complete", "Records": f"{len(df.columns)} columns"},
+            {"Step": "4. Quality Assessment", "Status": "Complete", "Records": "100/100"},
+            {"Step": "5. Export Ready", "Status": "Complete", "Records": "Production-ready"}
         ]
         
         cleaning_table = dash_table.DataTable(
@@ -438,22 +438,22 @@ class AutomotiveAnalyticsDashboard:
         # Define flowchart elements with positions
         boxes = [
             # Layer 1
-            {"name": "📁 Raw Data Sources", "x": 2, "y": 5, "width": 0.6, "height": 0.3, "color": "#667eea", "text_color": "white"},
+            {"name": "Raw Data Sources", "x": 2, "y": 5, "width": 0.6, "height": 0.3, "color": "#667eea", "text_color": "white"},
             {"name": "UCI Auto MPG\n(398 records)", "x": 0.5, "y": 4, "width": 0.55, "height": 0.35, "color": "#a8b8ff", "text_color": "black"},
             {"name": "EPA Fuel Economy\n(1,000 records)", "x": 2, "y": 4, "width": 0.65, "height": 0.35, "color": "#a8b8ff", "text_color": "black"},
             {"name": "Vehicle Dataset\n(2,000 records)", "x": 3.5, "y": 4, "width": 0.6, "height": 0.35, "color": "#a8b8ff", "text_color": "black"},
             
             # Layer 2
-            {"name": "🔄 Data Loading Layer\nDataLoader Class", "x": 2, "y": 3, "width": 0.7, "height": 0.35, "color": "#764ba2", "text_color": "white"},
+            {"name": "Data Loading Layer\nDataLoader Class", "x": 2, "y": 3, "width": 0.7, "height": 0.35, "color": "#764ba2", "text_color": "white"},
             
             # Layer 3
-            {"name": "✅ Quality Assessment\n3D Framework\n(Completeness/Validity/\nConsistency)", "x": 2, "y": 2, "width": 0.75, "height": 0.4, "color": "#43cea2", "text_color": "white"},
+            {"name": "Quality Assessment\n3D Framework\n(Completeness/Validity/\nConsistency)", "x": 2, "y": 2, "width": 0.75, "height": 0.4, "color": "#43cea2", "text_color": "white"},
             
             # Layer 4
-            {"name": "🔧 Data Cleaning\nAdaptive AI Strategies\nMissing Value Treatment", "x": 2, "y": 1, "width": 0.75, "height": 0.4, "color": "#f093fb", "text_color": "black"},
+            {"name": "Data Cleaning\nAdaptive AI Strategies\nMissing Value Treatment", "x": 2, "y": 1, "width": 0.75, "height": 0.4, "color": "#f093fb", "text_color": "black"},
             
             # Layer 5
-            {"name": "💾 Export & Visualization\nProduction-Ready Datasets", "x": 2, "y": 0, "width": 0.8, "height": 0.35, "color": "#4facfe", "text_color": "white"}
+            {"name": "Export & Visualization\nProduction-Ready Datasets", "x": 2, "y": 0, "width": 0.8, "height": 0.35, "color": "#4facfe", "text_color": "white"}
         ]
         
         # Add rectangles for each box
@@ -522,7 +522,7 @@ class AutomotiveAnalyticsDashboard:
         
         fig.update_layout(
             title={
-                'text': "🔄 Phase II Data Processing Flow Architecture",
+                'text': "Phase II Data Processing Flow Architecture",
                 'x': 0.5,
                 'xanchor': 'center',
                 'font': {'size': 20, 'color': '#667eea', 'family': 'Arial Black'}
@@ -535,11 +535,11 @@ class AutomotiveAnalyticsDashboard:
         
         # Processing steps
         steps_data = [
-            {"Layer": "🔵 Layer 1", "Component": "Data Sources", "Description": "Raw CSV files (3 datasets, 3,398 records)", "Status": "✅", "Time": "0.5s"},
-            {"Layer": "🟣 Layer 2", "Component": "Data Loading", "Description": "DataLoader class - Multi-format loading with validation", "Status": "✅", "Time": "2.3s"},
-            {"Layer": "🟢 Layer 3", "Component": "Quality Assessment", "Description": "3D Framework - Completeness/Validity/Consistency scoring", "Status": "✅", "Time": "1.8s"},
-            {"Layer": "🟣 Layer 4", "Component": "Data Cleaning", "Description": "Adaptive AI-driven strategies (Median/Mode/KNN)", "Status": "✅", "Time": "0.9s"},
-            {"Layer": "🔵 Layer 5", "Component": "Export & Visualization", "Description": "Production-ready datasets + Interactive Dashboard", "Status": "✅", "Time": "0.4s"}
+            {"Layer": "Layer 1", "Component": "Data Sources", "Description": "Raw CSV files (3 datasets, 3,398 records)", "Status": "", "Time": "0.5s"},
+            {"Layer": "Layer 2", "Component": "Data Loading", "Description": "DataLoader class - Multi-format loading with validation", "Status": "", "Time": "2.3s"},
+            {"Layer": "Layer 3", "Component": "Quality Assessment", "Description": "3D Framework - Completeness/Validity/Consistency scoring", "Status": "", "Time": "1.8s"},
+            {"Layer": "Layer 4", "Component": "Data Cleaning", "Description": "Adaptive AI-driven strategies (Median/Mode/KNN)", "Status": "", "Time": "0.9s"},
+            {"Layer": "Layer 5", "Component": "Export & Visualization", "Description": "Production-ready datasets + Interactive Dashboard", "Status": "", "Time": "0.4s"}
         ]
         
         steps_table = dash_table.DataTable(
@@ -569,11 +569,11 @@ class AutomotiveAnalyticsDashboard:
         
         # Performance metrics
         metrics_data = [
-            {"🎯 Metric": "Total Records Processed", "📊 Value": "3,398", "🏆 Benchmark": "Industry Avg: 2,500", "✨ Achievement": "+35.9%"},
-            {"🎯 Metric": "Total Execution Time", "📊 Value": "12.3 seconds", "🏆 Benchmark": "Industry Avg: 25s", "✨ Achievement": "2.03x faster"},
-            {"🎯 Metric": "Peak Memory Usage", "📊 Value": "225 MB", "🏆 Benchmark": "Industry Avg: 400 MB", "✨ Achievement": "1.78x better"},
-            {"🎯 Metric": "Average Quality Score", "📊 Value": "98.4/100", "🏆 Benchmark": "Industry Std: 95.0", "✨ Achievement": "+3.6%"},
-            {"🎯 Metric": "Missing Values Eliminated", "📊 Value": "6 (100%)", "🏆 Benchmark": "Target: 95%", "✨ Achievement": "Perfect ✨"}
+            {"Metric": "Total Records Processed", "Value": "3,398", "Benchmark": "Industry Avg: 2,500", "Achievement": "+35.9%"},
+            {"Metric": "Total Execution Time", "Value": "12.3 seconds", "Benchmark": "Industry Avg: 25s", "Achievement": "2.03x faster"},
+            {"Metric": "Peak Memory Usage", "Value": "225 MB", "Benchmark": "Industry Avg: 400 MB", "Achievement": "1.78x better"},
+            {"Metric": "Average Quality Score", "Value": "98.4/100", "Benchmark": "Industry Std: 95.0", "Achievement": "+3.6%"},
+            {"Metric": "Missing Values Eliminated", "Value": "6 (100%)", "Benchmark": "Target: 95%", "Achievement": "Perfect "}
         ]
         
         metrics_table = dash_table.DataTable(
@@ -583,7 +583,7 @@ class AutomotiveAnalyticsDashboard:
             style_header={'backgroundColor': 'rgb(0, 150, 100)', 'color': 'white', 'fontWeight': 'bold', 'fontSize': 14},
             style_data_conditional=[
                 {
-                    'if': {'column_id': '✨ Achievement'},
+                    'if': {'column_id': 'Achievement'},
                     'fontWeight': 'bold',
                     'color': '#00aa00'
                 },
@@ -595,19 +595,19 @@ class AutomotiveAnalyticsDashboard:
         )
         
         return html.Div([
-            html.H3("🔄 Phase II Process Flow Architecture", style={'color': '#667eea', 'fontSize': 24}),
+            html.H3("Phase II Process Flow Architecture", style={'color': '#667eea', 'fontSize': 24}),
             
             html.Div([
                 dcc.Graph(figure=fig)
             ]),
             
             html.Div([
-                html.H4("📋 5-Layer Modular Architecture Details", style={'color': '#764ba2'}),
+                html.H4("5-Layer Modular Architecture Details", style={'color': '#764ba2'}),
                 steps_table
             ], style={'marginTop': 30}),
             
             html.Div([
-                html.H4("🏆 Performance Metrics & Achievements", style={'color': '#00aa00'}),
+                html.H4("Performance Metrics & Achievements", style={'color': '#00aa00'}),
                 metrics_table
             ], style={'marginTop': 30})
         ])
@@ -722,7 +722,7 @@ class AutomotiveAnalyticsDashboard:
         most_variable = cv.nlargest(3)
         
         insights.append({
-            'Category': '📊 Most Variable Features',
+            'Category': 'Most Variable Features',
             'Details': ', '.join([f"{col} (CV: {val:.2f})" for col, val in most_variable.items()])
         })
         
@@ -739,19 +739,19 @@ class AutomotiveAnalyticsDashboard:
         if outlier_counts:
             top_outliers = sorted(outlier_counts.items(), key=lambda x: x[1], reverse=True)[:3]
             insights.append({
-                'Category': '⚠️ Features with Outliers',
+                'Category': 'Features with Outliers',
                 'Details': ', '.join([f"{col} ({count} outliers)" for col, count in top_outliers])
             })
         else:
             insights.append({
-                'Category': '⚠️ Features with Outliers',
-                'Details': '✅ No significant outliers detected'
+                'Category': 'Features with Outliers',
+                'Details': 'No significant outliers detected'
             })
         
         # Data completeness
         completeness = (1 - df.isnull().sum().sum() / (len(df) * len(df.columns))) * 100
         insights.append({
-            'Category': '✅ Data Completeness',
+            'Category': 'Data Completeness',
             'Details': f'{completeness:.2f}% complete ({df.isnull().sum().sum()} missing values)'
         })
         
@@ -767,15 +767,15 @@ class AutomotiveAnalyticsDashboard:
         )
         
         return html.Div([
-            html.H3(f"🔬 Advanced Analytics: {selected_dataset.replace('_', ' ').title()}"),
+            html.H3(f"Advanced Analytics: {selected_dataset.replace('_', ' ').title()}"),
             
             html.Div([
-                html.H4("📊 Dataset Comparison Across All Sources"),
+                html.H4("Dataset Comparison Across All Sources"),
                 comparison_table
             ], style={'marginBottom': 30}),
             
             html.Div([
-                html.H4("💡 Statistical Insights"),
+                html.H4("Statistical Insights"),
                 insights_table
             ], style={'marginBottom': 30}),
             
@@ -784,9 +784,9 @@ class AutomotiveAnalyticsDashboard:
             ]),
             
             html.Div([
-                html.H4("🔝 Top 10 Feature Correlations"),
+                html.H4("Top 10 Feature Correlations"),
                 corr_table,
-                html.P("💡 Tip: Green highlights indicate strong positive correlations (>0.7), Pink indicates strong negative correlations (<-0.7)", 
+                html.P("Tip: Green highlights indicate strong positive correlations (>0.7), Pink indicates strong negative correlations (<-0.7)", 
                       style={'marginTop': 10, 'fontStyle': 'italic', 'color': '#666'})
             ], style={'marginTop': 30})
         ])
